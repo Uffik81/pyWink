@@ -12,10 +12,50 @@ var listChannels = null;
 // POST https://cnt-odcv-itv01.svc.iptv.rt.ru/api/v2/portal/session_tokens
 // body: {"fingerprint":"mHJFymgafeiba0kVum6OJ"}
 // GET wss://cnt-lbrc-itv01.svc.iptv.rt.ru/ws?session_id=3d608f30-b1cd-11eb-afe4-f063f976f300:1951416:2237006:2
-// Sec-WebSocket-Accept: lDOq0ZD8RXhyG7z98D4sZKipGX8=
+// Sec-WebSocket-Accept: lDOq0ZD8RXhyG7z98D4sZKipGX8=  94 33 aa d1 90 fc 45 78 72 1b bc fd f0 3e 2c 64 a8 a9 19 7f
 // 
 // POST https://cnt-lbrc-itv02.svc.iptv.rt.ru/event_collector
-// {"events":[{"utc":1620678062412,"uid":"mHJFymgafeiba0kVum6OJ","session_id":"3d608f30-b1cd-11eb-afe4-f063f976f300:1951416:2237006:2","san":"ct_nc_web_portal","auth_mode":"anonymous","is_test":0,"profile_id":590473,"session_type":"demo","sw_version":"v2021.05.05.1515","external_link":"/tv/580","category":"Жизненный цикл продукта","action":"Запуск приложения","label":"Запуск","device_type":"NCWEB","user_value":5},{"utc":1620678062414,"uid":"mHJFymgafeiba0kVum6OJ","session_id":"3d608f30-b1cd-11eb-afe4-f063f976f300:1951416:2237006:2","san":"ct_nc_web_portal","home_mrf":"ct","current_mrf":"sth","home_location":100001,"home_sub_location":100001,"cur_location":400008,"cur_sub_location":400008,"real_ip":"194.156.184.119","category":"Жизненный цикл продукта","action":"Геолокация устройства","user_value":2},{"utc":1620678062944,"uid":"mHJFymgafeiba0kVum6OJ","session_id":"3d608f30-b1cd-11eb-afe4-f063f976f300:1951416:2237006:2","san":"ct_nc_web_portal","category":"Интерфейс","action":"Показ страницы","user_value":1,"label":"tvchannel","title":"Всё ТВ","path":"/tv/580"}]}
+// {"events":[
+//    {"utc":1620678062412,
+//     "uid":"mHJFymgafeiba0kVum6OJ",
+//     "session_id":"3d608f30-b1cd-11eb-afe4-f063f976f300:1951416:2237006:2",
+//     "san":"ct_nc_web_portal",
+//     "auth_mode":"anonymous",
+//     "is_test":0,
+//     "profile_id":590473,
+//     "session_type":"demo",
+//     "sw_version":"v2021.05.05.1515",
+//     "external_link":"/tv/580",
+//     "category":"Жизненный цикл продукта",
+//     "action":"Запуск приложения",
+//     "label":"Запуск",
+//     "device_type":"NCWEB",
+//     "user_value":5},
+//    {"utc":1620678062414,
+//     "uid":"mHJFymgafeiba0kVum6OJ",
+//     "session_id":"3d608f30-b1cd-11eb-afe4-f063f976f300:1951416:2237006:2",
+//     "san":"ct_nc_web_portal",
+//     "home_mrf":"ct",
+//     "current_mrf":"sth",
+//     "home_location":100001,
+//     "home_sub_location":100001,
+//     "cur_location":400008,
+//     "cur_sub_location":400008,
+//     "real_ip":"194.156.184.119",
+//     "category":"Жизненный цикл продукта",
+//     "action":"Геолокация устройства",
+//     "user_value":2},
+//    {"utc":1620678062944,
+//     "uid":"mHJFymgafeiba0kVum6OJ",
+//     "session_id":"3d608f30-b1cd-11eb-afe4-f063f976f300:1951416:2237006:2",
+//     "san":"ct_nc_web_portal",
+//     "category":"Интерфейс",
+//     "action":"Показ страницы",
+//     "user_value":1,
+//     "label":"tvchannel",
+//     "title":"Всё ТВ",
+//     "path":"/tv/580"}
+// ]}
 // Request URL: https://rum.ngenix.net/result?data=%7B%22jobid%22:%22b41587f9-c041-befa-b0c5-51120695ab0b%22,%22tasksGroupKey%22:%22wink.rt.ru%22,%22results%22:%5B%7B%22id%22:2957,%22success%22:true,%22domainLookupDuration%22:0,%22connectDuration%22:0,%22requestDuration%22:22,%22responseDuration%22:28,%22fetchDuration%22:30%7D%5D,%22resolverIP%22:%22194.190.110.243%22%7D&jsonp=_63a0a1f3ede006e65f75d9dfb91804ba
 // data: {"jobid":"b41587f9-c041-befa-b0c5-51120695ab0b","tasksGroupKey":"wink.rt.ru","results":[{"id":2957,"success":true,"domainLookupDuration":0,"connectDuration":0,"requestDuration":22,"responseDuration":28,"fetchDuration":30}],"resolverIP":"194.190.110.243"}
 // jsonp: _63a0a1f3ede006e65f75d9dfb91804ba
