@@ -53,7 +53,7 @@ videoplayer.src = url_hls_580; //'https://s26037.cdn.ngenix.net/imo/transform/pr
 const iframe    = document.getElementById('iframe');
 const iframeWin = iframe.contentWindow || iframe;
 const iframeDoc = iframe.contentDocument || iframeWin.document;
-
+//iframe.setAttribute("src","https://wink.rt.ru");
 let script = iframeDoc.createElement('SCRIPT');
 
 script.append(` var wink_session_id = '';
@@ -70,7 +70,7 @@ script.append(` var wink_session_id = '';
                 console.log('GET succeeded.');
             }
             else {
-                console.warn('GET failed.');
+                console.log('GET failed.');
             }
         }
     }
@@ -79,12 +79,16 @@ script.append(` var wink_session_id = '';
 
 iframeDoc.documentElement.appendChild(script);
 
+function getChannels(){
+
+}
 
 function getSessionId(){
     let jsonLoader = new XMLHttpRequest();
     jsonLoader.open('POST','https://cnt-odcv-itv01.svc.iptv.rt.ru/api/v2/portal/session_tokens')
     jsonLoader.onreadystatechange = (obj, e) => {
-        if (jsonLoader.status === 200){
+        if (jsonLoader.readyState == 4 && jsonLoader.status == 200){
+            console.log(jsonLoader.responseText);
             let ret = JSON.parse(jsonLoader.responseText);
             wink_session_id = ret.session_id;
         }
