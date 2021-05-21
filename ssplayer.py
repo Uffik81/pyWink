@@ -1,9 +1,14 @@
+# Class readSSLStream  
+# Класс получения видеопотока из HLS по https протоколу
+#
+#
+
 import socket
 import ssl
 from threading import Thread
 
 class readSSLStream(Thread):
-    def __init__(self,server,url,oncallback=None , header=None):
+    def __init__(self,server,url,oncallback=None, header=None):
         Thread.__init__(self)
         self.server = server
         self.url = url
