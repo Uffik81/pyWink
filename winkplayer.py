@@ -13,6 +13,9 @@ import tkinter
 import time
 from ssplayer import readSSLStream
 
+
+
+
 url='https://a787201483-s72169.cdn.ngenix.net/hls/CH_VSETVHD_HLS/bw3000000/playlist.m3u8?useseq=t'
 
 #class myApp(App):
