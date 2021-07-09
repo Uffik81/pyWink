@@ -1,8 +1,16 @@
 document.title = 'player WINK';
 var listChannels = null;
+// zabava-live
+// http://sdp.svc.iptv.rt.ru:8080/CacheClient/ncdxml/ChannelPackage/list_channels?channelPackageId=11818722&locationId=100001&from=0&to=2147483647
+// X-Requested-With, Content-Type, x-smartlabs-mac-address, Range
+// X-Requested-With: XMLHttpRequest
+// Content-Type: application/json, text/plain, */*
+// x-smartlabs-mac-address: 00:1a:79:21:41:58
+// 
 // +++++ Wink +++++
 // GET https://wink.rt.ru/tv/
-
+// https://s26037.cdn.ngenix.net/sdp/sth/nclogo1526305986160.png
+// https://s26037.cdn.ngenix.net/sdp/sth/imp_stv517571047.jpg
 //window.__REVISION__ = "v2021.05.05.1515";
 //window.__IMAGES_URL__ = "https://s26037.cdn.ngenix.net";
 //window.__ALICE_ID__ = "7ab25b6a-30ae-4a5a-a67c-7996068e89ba";
@@ -65,12 +73,17 @@ var listChannels = null;
 // https://cnt-odcv-itv01.svc.iptv.rt.ru/api/v2/portal/channels?limit=30&offset=0&with_epg=true&epg_limit=3
 // session_id: 3d608f30-b1cd-11eb-afe4-f063f976f300:1951416:2237006:2
 // x-wink-version: v2021.05.05.1515
+
 var urlChannels = 'https://cnt-lbrc-itv01.svc.iptv.rt.ru/api/v2/portal/channels?limit=30&offset=0&with_epg=true&epg_limit=3';
 var url_580_option = 'https://cnt-lbrc-itv01.svc.iptv.rt.ru/api/v2/portal/channels/nc/580';
-var url_hls_580 = 'https://s72169.cdn.ngenix.net/hls/CH_VSETVHD_HLS/variant.m3u8';
+var url_hls_580 = 'https://zabava-htlive.cdn.ngenix.net/hls/CH_IDXTRAHD/variant.m3u8';
+//var url_hls_580 = 'https://s72169.cdn.ngenix.net/hls/CH_VSETVHD_HLS/variant.m3u8';
+// модификация 
+var url_hls_580 = 'https://s72169.cdn.ngenix.net/hls/CH_EUROSPORT4K_HLS/variant.m3u8';
 // ----- Wink -----  
 const url_auth_json = 'https://f58516f1-f901-5e0b-8ec0-c4183fd9decb.rum-reflector.ngenix.net/data.json?jsonp=_2e06787aa36fd17923fd591e06ee1e48'; 
-var url_580_ts = 'https://a3569456030-s72169.cdn.ngenix.net/hls/CH_VSETVHD_HLS/bw3000000/playlist.m3u8?sid=SRV01&useseq=t';
+//var url_580_ts = 'https://a3569456030-s72169.cdn.ngenix.net/hls/CH_VSETVHD_HLS/bw3000000/playlist.m3u8?sid=SRV01&useseq=t';
+var url_580_ts = 'https://a3569457540-zabava-htlive.cdn.ngenix.net/hls/CH_IDXTRAHD/bw4000000/playlist.m3u8?utcstart=1621969200';
 var wink_session_id = '3d608f30-b1cd-11eb-afe4-f063f976f300:1951416:2237006:2';
 var videoplayer = document.createElement('video');
 videoplayer.width = 1280;
