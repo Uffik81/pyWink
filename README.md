@@ -8,18 +8,18 @@ Client app for Wink service RT
 Клиент для Wink написан на python.
 Используем Kivy, ffpyplayer
 
-# Решено #
+## Решено ##
 
 * Парсинг JS из главной страницы
 * Получения плейлиста из сервиса
 * Опреденление url адреса медиапотока
  
-# Текущие проблемы #
+## Текущие проблемы ##
 
 * Решить вопрос с HLS шифрованием
 * Оформить интерфейс
 
-# Метод авторизации #
+## Метод авторизации ##
 На текущем этапе авторизация происходит через передачу параметров Cookie  
 
 # ENGLISH LANG #
@@ -27,22 +27,22 @@ Client app for Wink service RT
 The client for Wink is written in python.
 Using Kivy, ffpyplayer
 
-# Solved #
+## Solved ##
 
 * Parsing JS from home page
 * Retrieving a playlist from the service
 * Determining the url of the media stream
  
-# Current issues #
+## Current issues ##
 
 * Solve the issue with HLS encryption
 * Design interface
 
-# Authorization method #
+## Authorization method ##
 At the current stage, authorization occurs through the transfer of Cookie parameters
 
 
-# Settings #
+# Install and settings  #
 
 На текущий момент прописываем параметр `cookie` для авторизации в wink.rt.ru
 Как сделаю форму авторизации, так исправлю этот документ  
