@@ -124,30 +124,10 @@ class WinkParams:
                     elif value_p.isdigit() :
                         res_a , err = self.get_param_api(int(value_p),level+1)
                         param_api_1[item_d] = res_a
-
-                        #if isinstance(self.__MOBX_STATE__[int(value_p)],dict) :
-                        #    ret_res, err = self.get_param_api(int(list_item[item_d]),level+1)
-                        #    param_api_1 = {item_d:ret_res}
-                        #elif isinstance(self.__MOBX_STATE__[int(value_p)], list) : #and len(self.__MOBX_STATE__[int(list_item[item_d])]) != 0:
-                        #    res_a = []
-                        #    for item_d_1 in self.__MOBX_STATE__[int(list_item[item_d])]:
-                        #        #print(item_d_1)
-                        #        if isinstance(self.__MOBX_STATE__[int(item_d_1)],dict):
-                        #            res_b, err = self.get_param_api(int(item_d_1),level+1)
-                        #            res_a += [res_b]
-                        #        else:
-                        #            res_a += [self.__MOBX_STATE__[int(item_d_1)]]
-                        #    param_api_1 = {item_d:res_a}
-                        #elif isinstance(self.__MOBX_STATE__[int(value_p)], str) :
-                        #    param_api_1 = {item_d:self.__MOBX_STATE__[int(value_p)]}
-                        #else:
-                        #    print('{0} : {1}'.format(item_d, list_item[item_d]))
                     else:
                         param_api_1[item_d] = list_item[item_d]
                 else:
                     param_api_1[item_d] = list_item[item_d]
-                    #print('{0} : {1}'.format(item_d, list_item[item_d]))
-                #    param_api_1 = {item_d:self.__MOBX_STATE__[int(list_item[item_d])]}
             res += [param_api_1]
             #print('Append params {0}: {1}'.format(ind, param_api_1))
                 
@@ -241,7 +221,9 @@ class WincClientConnection:
     _params_api = []
     _tv = []
     _request_id = ''
+    _preauthorization = ''
     _current_channel = {}
+
     def __init__(self, params = None, tv = None):
         if params is None:
             self._params_api = WinkParams('https://wink.rt.ru')
@@ -271,9 +253,32 @@ class WincClientConnection:
         return res
 
         pass
+    def get_token_key(self, channel_id):
+        #https://yug-rndn-itv02.svc.iptv.rt.ru/api/v2/portal/content_drm_token?content_type=channel&content_id=1131048
+        tmp_url = self._api_endpoint+'api/v2/portal/content_drm_token?content_type=channel&content_id='+str(channel_id)
+        print(tmp_url)
+        tmp_token = json.loads( self.get_service(tmp_url))        
+        self._preauthorization = tmp_token.get('token')
+        return self._preauthorization
+        pass
+    def load_cert_ott(self, key_url):
+        # post https://s95951.cdn.ngenix.net/license
+        tmp_token = self.get_service_bin(key_url)
+
+        token = self.get_token_key(self._current_channel['id'])
 
     def get_image_url(self, path_image):
         return '{0}{0}'.format(self._params_ap.__IMAGES_URL__, path_image)
+
+    def get_list_channels(self):
+        #url = 'https://yug-rndn-itv02.svc.iptv.rt.ru/api/v2/portal/channels?limit=30&offset=90&with_epg=true&epg_limit=3'
+        tmp_url = self._api_endpoint+'api/v2/portal/channels?with_epg=true&epg_limit=3'
+        tmp_ch_list = json.loads( self.get_service(tmp_url))
+        ch_list = tmp_ch_list['items']
+        ch_list.sort(key = lambda x : x['nc_channel_id'])
+        for item in ch_list:
+            print('{0} {1}'.format(item['nc_channel_id'], item['name']))
+        return ch_list
 
     def get_channel_url(self, url):
         #https://s72169.cdn.ngenix.net/hls/CH_VSETVHD_HLS/variant.m3u8
@@ -284,13 +289,20 @@ class WincClientConnection:
         self._current_channel = ch_params
         if isinstance(ch_params,dict) :
             if ch_params.get( 'error_code') is None:
+                #print(ch_params)
                 print(ch_params['preview_duration'])        
                 print(ch_params['name'])
                 print(ch_params['description'])
                 print(ch_params['logo'])
-                print(ch_params['sources'][0]['url']) 
-                self._current_channel = ch_params
-                return ch_params['sources'][0]['url'] , False
+                #print(ch_params['sources'])    
+                if ch_params.get('is_crypted')  :
+                    self.load_cert_ott('https://s40757.cdn.ngenix.net/certificates/8BA6D7AC942DE15E1B375DEF7FA20918757A6533')             
+                if ch_params.get('sources') is None:
+                    return ch_params['description'] , True
+                else:
+                    self._current_channel = ch_params
+                    return ch_params['sources'][0]['url'] , False
+
             else:
                 return ch_params['description'] , True
 
@@ -310,7 +322,8 @@ class WincClientConnection:
             header['x-wink-version'] = self._params_api.__REVISION__
         if secur_header.find('X-Wink-Version') != -1:
             header['session_id'] = self._session_id
-
+        if secur_header.find('PreAuthorization') != -1:
+            header['preauthorization'] = self._preauthorization
         print(header)      
         conn = HTTPSConnection(urlparse(url).netloc)
         conn.set_debuglevel(5)
@@ -337,7 +350,8 @@ class WincClientConnection:
             header['x-wink-version'] = self._params_api.__REVISION__
         if secur_header.find('X-Wink-Version') != -1:
             header['session_id'] = self._session_id
-
+        if secur_header.find('PreAuthorization') != -1:
+            header['preauthorization'] = self._preauthorization
         print(header)      
         conn = HTTPSConnection(urlparse(url).netloc)
         conn.set_debuglevel(5)
