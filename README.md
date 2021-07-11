@@ -44,5 +44,5 @@ At the current stage, authorization occurs through the transfer of Cookie parame
 
 # Install and settings  #
 
-На текущий момент прописываем параметр `cookie` для авторизации в wink.rt.ru
+На текущий момент прописываем параметр `COOKIE` для авторизации в wink.rt.ru
 Как сделаю форму авторизации, так исправлю этот документ  
